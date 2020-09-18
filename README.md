@@ -1,6 +1,6 @@
-# Docker Image for methypy
+# Docker Image for methylpy
 <h4 align = "right">Colby T. Ford, Ph.D.</h4>
-This repository contains the Dockerfile for generating an Ubuntu image with methypy pre-installed.
+This repository contains the Dockerfile for generating an Ubuntu image with methylpy pre-installed.
 
 ## DockerHub
 This container image is available from DockerHub: [hub.docker.com/r/cford38/methylpy](https://hub.docker.com/r/cford38/methylpy)
@@ -22,7 +22,7 @@ docker cp myfile.txt methylpy:./myfile.txt
 
 ### Copy Files from Container
 ```
-docker cp methylpy:./root/SeekDeep/ ./
+docker cp methylpy:./root/methylpy/ ./
 ```
 
 -------------------------------
@@ -56,7 +56,7 @@ docker exec -it methylpy /bin/bash
 ## To Publish on DockerHub
 
 ```
-docker image tag seekdeep <USERNAME>/methylpy
+docker image tag methylpy <USERNAME>/methylpy
 docker push <USERNAME>/methylpy
 ```
 
