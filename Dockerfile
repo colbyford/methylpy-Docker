@@ -14,3 +14,5 @@ RUN conda install -c \
     pip install --no-cache-dir \
     azureml-defaults \
     methylpy
+
+ENV TAR="/bin/tar"
