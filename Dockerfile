@@ -75,20 +75,20 @@ RUN pip install --no-cache-dir \
     azureml-defaults \
     methylpy
 
-
 ## Install Picard (from: https://github.com/broadinstitute/picard)
 RUN git clone https://github.com/broadinstitute/picard.git && \
     cd picard/ && \
     ./gradlew shadowJar
 #     #java -jar build/libs/picard.jar
 
-## Install Flask
+## Install Flask (from: https://github.com/RodolfoFerro/docker-flask-api)
 WORKDIR /app
 COPY . /app
 
 RUN pip --no-cache-dir install -r requirements.txt
 
 ## Expose Ports to Public
+# EXPOSE 5000 8000 9881 22 3389
 EXPOSE 5000 8000 9881 22 3389
 
 CMD ["python", "app.py"]
