@@ -42,13 +42,14 @@ _Note:_ You may have to increase the resource limits in Docker's settings as thi
 
 4. Once the image has been created successfully, run the container using the following command.
 ```
-docker run methylpy
+docker run -it -p 5000:5000 -v $(pwd):/app methylpy
+## remove `-v $(pwd):/app` if on Windows Command Prompt
 ```
 
-5. Once the container is ready, remote into the bash terminal.
+5. Once the container is ready, you can remote into the bash terminal.
 ```
-docker run --name methylpy -d methylpy
-docker exec -it methylpy /bin/bash
+#docker run --name methylpy -d methylpy
+ocker exec -it methylpy /bin/bash
 ```
 
 ----------------------
