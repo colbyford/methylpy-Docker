@@ -10,19 +10,32 @@ RUN apt-get install -y --no-install-recommends \
     git \
     wget \
     apt-transport-https \
-    ca-certificates
+    ca-certificates \
+    build-essential
 
-# Install OpenJDK-8
+RUN apt-get update
+RUN DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends apt-utils
+
+RUN mkdir -p /usr/share/man/man1
+
+## Install OpenJDK-8
 RUN apt-get update && \
     apt-get install -y openjdk-8-jdk && \
     apt-get install -y ant && \
     apt-get clean;
 
-# Fix certificate issues
+## Fix certificate issues
 RUN apt-get update && \
     apt-get install ca-certificates-java && \
     apt-get clean && \
     update-ca-certificates -f;
+
+## Install Dependencies for pysam
+RUN apt-get -y install \
+    zlib1g-dev \
+    libbz2-dev \
+    libcurl4-gnutls-dev \
+    libssl-dev
 
 # Setup JAVA_HOME -- useful for docker commandline
 ENV JAVA_HOME /usr/lib/jvm/java-8-openjdk-amd64/
@@ -59,11 +72,13 @@ RUN export JAVA_HOME
 # RUN conda install conda=4.6.141
 # RUN conda config --set auto_update_conda false
 
-## Install Dependencies
+## Install Dependencies for methylpy
 RUN conda install --yes -c bioconda \
-		cutadapt \
+    bowtie \
     bowtie2 \
+    minimap2 \
 		samtools \
+    ucsc-wigtobigwig \
 		nomkl
 
 # RUN conda install -c \
@@ -73,7 +88,28 @@ RUN conda install --yes -c bioconda \
 
 RUN pip install --no-cache-dir \
     azureml-defaults \
-    methylpy
+    cutadapt
+    #methylpy
+
+## Install methylpy from git
+RUN git clone https://github.com/yupenghe/methylpy.git && \
+    cd methylpy/ && \
+    python setup.py install && \
+    cd methylpy/
+    # cp run_rms_tests.out /opt/miniconda/lib/python3.7/site-packages/methylpy/ && \
+    # cd ../..
+
+
+## Install Dependencies for DMRfind
+RUN apt-get -y install \
+    libgsl-dev
+RUN ln -s /usr/lib/x86_64-linux-gnu/libgsl.so.23 lib/libgsl.so.0
+
+## Set Up DMRfind (rms.cpp)
+# RUN cd methylpy/ && \
+#     g++ -o run_rms_tests.out rms.cpp `gsl-config --cflags -libs` && \
+#     cp run_rms_tests.out /opt/miniconda/lib/python3.7/site-packages/methylpy/ && \
+#     cd ..
 
 ## Install Picard (from: https://github.com/broadinstitute/picard)
 RUN git clone https://github.com/broadinstitute/picard.git && \
