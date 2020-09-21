@@ -37,7 +37,7 @@ docker cp methylpy:./root/methylpy/ ./
 docker build -t methylpy .
 ```
 _Note:_ You may have to increase the resource limits in Docker's settings as this container size (and the resources methylpy needs to run) will be quite large.
-<p align="center"><img src="DockerSettings.PNG" width="500px"></p>
+<p align="center"><img src="DockerSettings.png" width="500px"></p>
 
 
 4. Once the image has been created successfully, run the container using the following command.
