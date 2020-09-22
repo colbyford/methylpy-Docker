@@ -65,3 +65,14 @@ docker push <USERNAME>/methylpy
 ## About methylpy
 
 methylpy, developed by the Yupeng He, is a python-based analysis pipeline for (single-cell) (whole-genome) bisulfite sequencing data, (single-cell) NOMe-seq data, differential methylation analysis. Check out the GitHub repo for more details: [https://github.com/yupenghe/methylpy](https://github.com/yupenghe/methylpy)
+
+## Testing methylpy
+
+To test whether methylpy and the dependencies are installed and set up correctly, run:
+
+```
+wget http://neomorph.salk.edu/yupeng/share/methylpy_test.tar.gz
+tar -xf methylpy_test.tar.gz
+cd methylpy_test/
+python run_test.py
+```
