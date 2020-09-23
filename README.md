@@ -76,3 +76,7 @@ tar -xf methylpy_test.tar.gz
 cd methylpy_test/
 python run_test.py
 ```
+
+## To Do
+1. Enable DMR functionality
+2. Enable calling of methlypy process from the Flask API
